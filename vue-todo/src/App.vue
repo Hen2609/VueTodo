@@ -12,7 +12,7 @@
       </tr>
       <tr v-for="todo in waitingTodos" :key="todo.id">
         <td>
-          <button :disabled="todo.completed" @click="completeTodo(todo.id)">תלחץ אותי</button>
+          <button @click="completeTodo(todo.id)">תלחץ אותי</button>
         </td>
         <td>{{ todo.description }}</td>
       </tr>
