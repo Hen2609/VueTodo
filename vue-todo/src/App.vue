@@ -73,6 +73,14 @@ export default {
       this.todos.push(newTodo);
     },
   },
+  watch: {
+    completedTodos: function (newValue, oldValue) {
+      if (oldValue.length != 0 && newValue.length == 0) {
+        console.log("hi");
+        alert("לא ביצעת כלום!");
+      }
+    },
+  },
 };
 </script>
 
