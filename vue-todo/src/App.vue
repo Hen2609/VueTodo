@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <p>Awesome Todo App</p>
+    <p>{{ title }}</p>
+    <p>נותרו לך {{totalTodos}} משימות</p>
     <table>
       <tr>
         <th>תיאור</th>
         <th>בצע</th>
       </tr>
-      <tr v-for="(todo,index) in todos" :key="index">
-        <td>{{ todo }}</td>
+      <tr v-for="todo in todos" :key="todo.id">
+        <td>{{ todo.description }}</td>
         <td>
-          <button>תלחץ אותי</button>
+          <button :disabled="todo.completed" @click="completeTodo(todo.id)">תלחץ אותי</button>
         </td>
       </tr>
     </table>
@@ -19,11 +20,26 @@
 <script>
 export default {
   name: "App",
-  methods: {},
   data() {
     return {
-      todos: ["Ramle", "capital", "center"],
+      title: "רמלה אימפריה",
+      todos: [
+        { id: 1, description: "Ramle", completed: false },
+        { id: 2, description: "Capital", completed: false },
+        { id: 3, description: "Center", completed: true },
+      ],
     };
+  },
+  computed: {
+    totalTodos: function () {
+      return this.todos.filter((todo) => !todo.completed).length;
+    },
+  },
+  methods: {
+    completeTodo: function (id) {
+      const todo = this.todos.find((todo) => todo.id == id);
+      todo["completed"] = true;
+    },
   },
 };
 </script>
