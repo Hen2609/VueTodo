@@ -7,7 +7,7 @@
         <th>בצע</th>
       </tr>
       <tr v-for="(todo,index) in todos" :key="index">
-        <td>{{todo}}</td>
+        <td>{{ todo }}</td>
         <td>
           <button>תלחץ אותי</button>
         </td>
@@ -22,7 +22,7 @@ export default {
   methods: {},
   data() {
     return {
-      todos: ["daniel", "sabag", "wasHere"],
+      todos: ["Ramle", "capital", "center"],
     };
   },
 };
