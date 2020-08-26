@@ -4,7 +4,6 @@
     <p>נותרו לך {{totalTodos}} משימות</p>
     <button @click="addTodo">הוסף משימה</button>
     <input type="text" v-model="newTodo" />
-        <th>בצע</th>
     <todosTable
       :todos="waitingTodos"
       title="משימות לביצוע"
