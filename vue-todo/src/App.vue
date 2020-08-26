@@ -4,42 +4,36 @@
     <p>נותרו לך {{totalTodos}} משימות</p>
     <button @click="addTodo">הוסף משימה</button>
     <input type="text" v-model="newTodo" />
-    <p>משימות לביצוע</p>
-    <table>
-      <tr>
         <th>בצע</th>
-        <th>תיאור</th>
-      </tr>
-      <tr v-for="todo in waitingTodos" :key="todo.id">
-        <td>
-          <button @click="completeTodo(todo.id)">תלחץ אותי</button>
-        </td>
-        <td>{{ todo.description }}</td>
-      </tr>
-    </table>
-    <p>משימות שבוצעו</p>
-    <table>
-      <tr>
-        <th>בצע</th>
-        <th>תיאור</th>
-      </tr>
-      <tr v-for="todo in completedTodos" :key="todo.id">
-        <td>
-          <button @click="completeTodo(todo.id)">תלחץ אותי</button>
-        </td>
-        <td>{{ todo.description }}</td>
-      </tr>
-    </table>
+    <todosTable
+      :todos="waitingTodos"
+      title="משימות לביצוע"
+      @todoCompletionChanged="todoCompletionChanged"
+    />
+    <todosTable
+      :todos="completedTodos"
+      title="משימות שבוצעו"
+      tableEmptiedAlert="לא ביצעת כלום היום!"
+      @todoCompletionChanged="todoCompletionChanged"
+    />
   </div>
 </template>
 
 <script>
+import todosTable from "@/components/TodosTable/todosTable.vue";
 export default {
   name: "App",
+  components: {
+    todosTable,
+  },
   data() {
     return {
       title: "רמלה אימפריה",
       newTodo: "",
+      temp: {
+        name: "",
+        age: "",
+      },
       todos: [
         { id: 1, description: "Ramle", completed: false },
         { id: 2, description: "Capital", completed: false },
@@ -59,7 +53,7 @@ export default {
     },
   },
   methods: {
-    completeTodo: function (id) {
+    todoCompletionChanged: function (id) {
       const todo = this.todos.find((todo) => todo.id === id);
       todo["completed"] = !todo["completed"];
     },
@@ -71,14 +65,6 @@ export default {
         completed: false,
       };
       this.todos.push(newTodo);
-    },
-  },
-  watch: {
-    completedTodos: function (newValue, oldValue) {
-      if (oldValue.length != 0 && newValue.length == 0) {
-        console.log("hi");
-        alert("לא ביצעת כלום!");
-      }
     },
   },
 };
